@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { deleteProject } from '../../store/actions/projectActions';
 
 class ProjectSummary extends Component {
-  // const ProjectSummary = ({ project }, props) => {
   render() {
     const { project, deleteProject } = this.props;
 
@@ -22,7 +21,13 @@ class ProjectSummary extends Component {
           <p>Posted by {project.authorFirstName} {project.authorLastName}</p>
           <p className="grey-text">{moment(project.createdAt.toDate()).calendar()}</p>
           <p>　</p>
-          <button className="btn pink lighten-1 z-depth-0" onClick={handleClickDelete}>
+          <Link to={'/project/' + project.id + '/edit'}>
+            <button className="btn blue lighten-1 z-depth-0">
+              Edit
+            </button>
+          </Link>
+          <span> </span>
+          <button className="btn red lighten-1 z-depth-0" onClick={handleClickDelete}>
             Delete
           </button>
         </div>
