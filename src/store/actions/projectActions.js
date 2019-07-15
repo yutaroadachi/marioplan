@@ -17,3 +17,33 @@ export const createProject = (project) => {
     })
   }
 }
+
+export const deleteProject = (projectId) => {
+  return (dispatch) => {
+    const firebase = require("firebase");
+    const firestore = firebase.firestore();
+
+    firestore.collection('projects').doc(projectId).delete()
+      .then(() => {
+        dispatch({ type: 'DELETE_PROJECT' });
+      }).catch((err) => {
+        dispatch({ type: 'DELETE_PROJECT_ERROR', err });
+      })
+  }
+}
+
+export const editProject = (project, projectId) => {
+  return (dispatch) => {
+    const firebase = require("firebase");
+    const firestore = firebase.firestore();
+
+    firestore.collection('projects').doc(projectId).update({
+      title: project.title,
+      content: project.content
+    }).then(() => {
+      dispatch({ type: 'UPDATE_PROJECT', project });
+    }).catch((err) => {
+      dispatch({ type: 'UPDATE_PROJECT_ERROR', err });
+    })
+  }
+}
